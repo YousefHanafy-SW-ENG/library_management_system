@@ -11,3 +11,19 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+
+model Book {
+  id                String   @id @default(uuid())
+  title             String
+  author            String
+  isbn              String   @unique
+  availableQuantity Int      @default(0)
+  shelfLocation     String?
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  @@index([title])
+  @@index([author])
+  @@index([isbn])
+}

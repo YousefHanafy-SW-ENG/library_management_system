@@ -1,12 +1,12 @@
 import { StatusCodes } from "http-status-codes";
 
-export const ErrorHandler = () => (error,res) =>{
-    const { status, message, errorCode} = error;
+export const errorHandler = (err, req, res, next) => {
+  const statusCode = err.statusCode || err.status || StatusCodes.INTERNAL_SERVER_ERROR;
 
-    return res.status(status || StatusCodes.INTERNAL_SERVER_ERROR).json({
-        success: false,
-        message: message || 'Unexpected Error',
-        errorCode,
-        data:null
-    });
+  return res.status(statusCode).json({
+    success: false,
+    message: err.message || "Unexpected Error",
+    errorCode: err.errorCode || err.code,
+    data: null,
+  });
 };

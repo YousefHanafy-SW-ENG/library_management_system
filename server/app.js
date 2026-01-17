@@ -6,7 +6,7 @@ import compression from 'compression';
 import router from './router.js';
 import { API_BASE_PATH } from '../config/env/index.js';
 import requestLogger from '../common/middleware/requestLogger/index.js';
-import { ErrorHandler } from '../common/middleware/errorHandler/index.js';
+import { errorHandler } from '../common/middleware/errorHandler/index.js';
 
 const corsOptions = {
     origin: '*',
@@ -24,6 +24,6 @@ app.use(requestLogger);
 app.use(cors(corsOptions));
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(`${API_BASE_PATH}`, router);
-app.use(ErrorHandler());
+app.use(errorHandler);
 
 export default app;
