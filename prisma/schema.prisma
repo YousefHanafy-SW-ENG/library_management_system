@@ -23,17 +23,44 @@ model Book {
 
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
+
   @@index([title])
   @@index([author])
   @@index([isbn])
+
+  borrowings        Borrowing[]
 }
 
 model Borrower {
-  id                String   @id @default(uuid())
-  name              String
-  email             String   @unique
-  registeredDate    DateTime @default(now())
-  
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  id              String   @id @default(uuid())
+  name            String
+  email           String   @unique
+  registeredDate  DateTime @default(now())
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  borrowings      Borrowing[]
+}
+
+model Borrowing {
+  id          String    @id @default(uuid())
+
+  book        Book      @relation(fields: [bookId], references: [id])
+  bookId      String
+
+  borrower    Borrower  @relation(fields: [borrowerId], references: [id])
+  borrowerId  String
+
+  checkedOutAt DateTime @default(now())
+  dueDate      DateTime
+  returnedAt   DateTime?
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([bookId])
+  @@index([borrowerId])
+  @@index([borrowerId, returnedAt])
+  @@index([dueDate, returnedAt])
 }

@@ -17,7 +17,7 @@ export const registerBorrower = async (payload) => {
       null
     );
   }
-    return await borrowerModel.create(payload);
+  return await borrowerModel.create(payload);
 };
 
 export const deleteBorrower = async(id)=>{

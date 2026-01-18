@@ -31,7 +31,29 @@ async findById(id) {
     where: { id },
   });
 }
-  
+
+async availableQuantity(id){
+  return this.prisma.book.findUnique({
+    where: {id},
+    select:{
+      availableQuantity: true
+    },
+  }).availableQuantity;
+}
+
+async decrementBookQuantity(id, db = this.prisma) {
+   return db.book.update({
+    where: { id },
+    data: { availableQuantity: { decrement: 1 } },
+  });
+}
+
+async incrementBookQuantity(id, db = this.prisma) {
+   return db.book.update({
+    where: { id },
+    data: { availableQuantity: { increment: 1 } },
+  });
+}
 
 async create(payload){
   return this.prisma.book.create({
