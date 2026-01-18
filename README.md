@@ -71,7 +71,7 @@ Create a `.env` file:
 
 ```env
 DATABASE_URL="postgresql://user:password@localhost:5432/library"
-PORT=3000
+PORT=5001
 API_BASE_PATH=/api
 ```
 
@@ -180,3 +180,4 @@ All endpoints are prefixed with:
 ## 📄 License
 
 MIT License
+
